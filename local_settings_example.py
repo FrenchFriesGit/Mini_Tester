@@ -10,10 +10,11 @@ SECRET_KEY = "<CHANGE ME TO SOME RANDOM STRING ONCE IN PRODUCTION>"
 
 ALLOWED_HOSTS = [
         "relate.example.edu",
+        "https://sangaku.azurewebsites.net"
         ]
 
 # Configure the following as url as above.
-RELATE_BASE_URL = "http://YOUR/RELATE/SITE/DOMAIN"
+RELATE_BASE_URL = "https://sangaku.azurewebsites.net"
 
 from django.utils.translation import gettext_noop  # noqa
 
