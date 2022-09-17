@@ -11,7 +11,7 @@ SECRET_KEY = "<CHANGE ME TO SOME RANDOM STRING ONCE IN PRODUCTION>"
 ALLOWED_HOSTS = [
         "relate.example.edu",
         "127.0.0.1",
-        "20.78.94.215",
+        # "20.78.94.215",
         ]
 
 # Configure the following as url as above.

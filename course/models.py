@@ -84,12 +84,12 @@ def validate_course_specific_language(value: str) -> None:
 
 class Course(models.Model):
     identifier = models.CharField(max_length=200, unique=True,
-            help_text=_("A course identifier. Alphanumeric with dashes, "
-            "no spaces. This is visible in URLs and determines the location "
-            "on your file system where the course's git repository lives. "
-            "This should <em>not</em> be changed after the course has been created "
-            "without also moving the course's git on the server."),
-            verbose_name=_("Course identifier"),
+        #     help_text=_("A course identifier. Alphanumeric with dashes, "
+        #     "no spaces. This is visible in URLs and determines the location "
+        #     "on your file system where the course's git repository lives. "
+        #     "This should <em>not</em> be changed after the course has been created "
+        #     "without also moving the course's git on the server."),
+            verbose_name=_("コースID"),
             db_index=True,
             validators=[
                 RegexValidator(
@@ -102,126 +102,129 @@ class Course(models.Model):
     name = models.CharField(
             null=True, blank=False,
             max_length=200,
-            verbose_name=_("Course name"),
-            help_text=_("A human-readable name for the course. "
-                "(e.g. 'Numerical Methods')"))
+            verbose_name=_("コース名"),
+        #     help_text=_("A human-readable name for the course. "
+        #         "(e.g. 'Numerical Methods')")
+                )
     number = models.CharField(
             null=True, blank=False,
             max_length=200,
-            verbose_name=_("Course number"),
-            help_text=_("A human-readable course number/ID "
-                "for the course (e.g. 'CS123')"))
+            verbose_name=_("コース番号"),
+        #     help_text=_("A human-readable course number/ID "
+        #         "for the course (e.g. 'CS123')")
+                )
     time_period = models.CharField(
             null=True, blank=False,
             max_length=200,
-            verbose_name=_("Time Period"),
-            help_text=_("A human-readable description of the "
-                "time period for the course (e.g. 'Fall 2014')"))
+            verbose_name=_("期限"),
+        #     help_text=_("A human-readable description of the "
+        #         "time period for the course (e.g. 'Fall 2014')")
+                )
 
     start_date = models.DateField(
-            verbose_name=_("Start date"),
+            verbose_name=_("開始日"),
             null=True, blank=True)
     end_date = models.DateField(
-            verbose_name=_("End date"),
+            verbose_name=_("終了日"),
             null=True, blank=True)
 
     hidden = models.BooleanField(
             default=True,
-            help_text=_("Is the course only accessible to course staff?"),
+        #     help_text=_("Is the course only accessible to course staff?"),
             verbose_name=_("Only visible to course staff"))
     listed = models.BooleanField(
             default=True,
-            help_text=_("Should the course be listed on the main page?"),
+        #     help_text=_("Should the course be listed on the main page?"),
             verbose_name=_("Listed on main page"))
     accepts_enrollment = models.BooleanField(
             default=True,
             verbose_name=_("Accepts enrollment"))
 
     git_source = models.CharField(max_length=200, blank=False,
-            help_text=_("A Git URL from which to pull course updates. "
-            "If you're just starting out, enter "
-            "<tt>https://github.com/inducer/relate-sample.git</tt> "
-            "to get some sample content."),
-            verbose_name=_("git source"))
+        #     help_text=_("A Git URL from which to pull course updates. "
+        #     "If you're just starting out, enter "
+        #     "<tt>https://github.com/inducer/relate-sample.git</tt> "
+        #     "to get some sample content."),
+            verbose_name=_("Git URL"))
     ssh_private_key = models.TextField(blank=True,
-            help_text=_("An SSH private key to use for Git authentication. "
-            "Not needed for the sample URL above."
-            "You may use <a href='/generate-ssh-key'>this tool</a> to generate "
-            "a key pair."),
-            verbose_name=_("SSH private key"))
+        #     help_text=_("An SSH private key to use for Git authentication. "
+        #     "Not needed for the sample URL above."
+        #     "You may use <a href='/generate-ssh-key'>this tool</a> to generate "
+        #     "a key pair."),
+            verbose_name=_("SSHの秘密鍵"))
     course_root_path = models.CharField(max_length=200, blank=True,
-            help_text=_(
-                "Subdirectory <em>within</em> the git repository to use as "
-                "course root directory. Not required, and usually blank. "
-                "Use only if your course content lives in a subdirectory "
-                "of your git repository. "
-                "Should not include trailing slash."),
+        #     help_text=_(
+        #         "Subdirectory <em>within</em> the git repository to use as "
+        #         "course root directory. Not required, and usually blank. "
+        #         "Use only if your course content lives in a subdirectory "
+        #         "of your git repository. "
+        #         "Should not include trailing slash."),
             verbose_name=_("Course root in repository"))
 
     course_file = models.CharField(max_length=200,
             default="course.yml",
-            help_text=_("Name of a YAML file in the git repository that "
-            "contains the root course descriptor."),
-            verbose_name=_("Course file"))
+        #     help_text=_("Name of a YAML file in the git repository that "
+        #     "contains the root course descriptor."),
+            verbose_name=_("コースのファイル"))
     events_file = models.CharField(max_length=200,
             default="events.yml",
-            help_text=_("Name of a YAML file in the git repository that "
-            "contains calendar information."),
-            verbose_name=_("Events file"))
+        #     help_text=_("Name of a YAML file in the git repository that "
+        #     "contains calendar information."),
+            verbose_name=_("イベントのファイル"))
 
     enrollment_approval_required = models.BooleanField(
             default=False,
-            help_text=_("If set, each enrolling student must be "
-            "individually approved."),
+        #     help_text=_("If set, each enrolling student must be "
+        #     "individually approved."),
             verbose_name=_("Enrollment approval required"))
     preapproval_require_verified_inst_id = models.BooleanField(
             default=True,
-            help_text=_("If set, students cannot get participation "
-                        "preapproval using institutional ID if "
-                        "the institutional ID they provided is not "
-                        "verified."),
+        #     help_text=_("If set, students cannot get participation "
+        #                 "preapproval using institutional ID if "
+        #                 "the institutional ID they provided is not "
+        #                 "verified."),
             verbose_name=_("Prevent preapproval by institutional ID if not "
                            "verified?"))
     enrollment_required_email_suffix = models.CharField(
             max_length=200, blank=True, null=True,
-            help_text=_("Enrollee's email addresses must end in the "
-            "specified suffix, such as '@illinois.edu'."),
+        #     help_text=_("Enrollee's email addresses must end in the "
+        #     "specified suffix, such as '@illinois.edu'."),
             verbose_name=_("Enrollment required email suffix"))
 
     from_email = models.EmailField(
             # Translators: replace "RELATE" with the brand name of your
             # website if necessary.
-            help_text=_("This email address will be used in the 'From' line "
-            "of automated emails sent by RELATE."),
+        #     help_text=_("This email address will be used in the 'From' line "
+        #     "of automated emails sent by RELATE."),
             verbose_name=_("From email"))
 
     notify_email = models.EmailField(
-            help_text=_("This email address will receive "
-            "notifications about the course."),
+        #     help_text=_("This email address will receive "
+        #     "notifications about the course."),
             verbose_name=_("Notify email"))
 
     force_lang = models.CharField(max_length=200, blank=True, null=True,
             default="",
             validators=[validate_course_specific_language],
-            help_text=_(
-                "Which language is forced to be used for this course."),
+        #     help_text=_(
+        #         "Which language is forced to be used for this course."),
             verbose_name=_("Course language forcibly used"))
 
     # {{{ XMPP
 
     course_xmpp_id = models.CharField(max_length=200, blank=True, null=True,
-            help_text=_("(Required only if the instant message feature is "
-            "desired.) The Jabber/XMPP ID (JID) the course will use to sign "
-            "in to an XMPP server."),
+        #     help_text=_("(Required only if the instant message feature is "
+        #     "desired.) The Jabber/XMPP ID (JID) the course will use to sign "
+        #     "in to an XMPP server."),
             verbose_name=_("Course xmpp ID"))
     course_xmpp_password = models.CharField(max_length=200, blank=True, null=True,
-            help_text=_("(Required only if the instant message feature is "
-            "desired.) The password to go with the JID above."),
+        #     help_text=_("(Required only if the instant message feature is "
+        #     "desired.) The password to go with the JID above."),
             verbose_name=_("Course xmpp password"))
 
     recipient_xmpp_id = models.CharField(max_length=200, blank=True, null=True,
-            help_text=_("(Required only if the instant message feature is "
-            "desired.) The JID to which instant messages will be sent."),
+        #     help_text=_("(Required only if the instant message feature is "
+        #     "desired.) The JID to which instant messages will be sent."),
             verbose_name=_("Recipient xmpp ID"))
 
     # }}}

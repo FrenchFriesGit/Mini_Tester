@@ -293,7 +293,7 @@ def set_up_new_course(request: http.HttpRequest) -> http.HttpResponse:
         form = CourseCreationForm()
 
     return render(request, "generic-form.html", {
-        "form_description": _("Set up new course"),
+        "form_description": _("新規コース作成"),
         "form": form
         })
 
