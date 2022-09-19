@@ -1688,19 +1688,19 @@ def add_buttons_to_form(
     show_save_button = getattr(form, "show_save_button", True)
     if show_save_button:
         form.helper.add_input(
-                Submit("save", _("Save answer"),
+                Submit("save", _("回答を記録"),
                     css_class="relate-save-button"))
 
     if will_receive_feedback(permissions):
         if flow_permission.change_answer in permissions:
             form.helper.add_input(
                     Submit(
-                        "submit", _("Submit answer for feedback"),
+                        "submit", _("アンケートに回答"),
                         accesskey="g",
                         css_class="relate-save-button relate-submit-button"))
         else:
             form.helper.add_input(
-                    Submit("submit", _("Submit final answer"),
+                    Submit("submit", _("回答を提出"),
                         css_class="relate-save-button relate-submit-button"))
     else:
         # Only offer 'save and move on' if student will receive no feedback
@@ -2749,26 +2749,26 @@ class RegradeFlowForm(StyledForm):
         self.fields["flow_id"] = forms.ChoiceField(
                 choices=[(fid, fid) for fid in flow_ids],
                 required=True,
-                label=_("Flow ID"),
+                label=_("テストID"),
                 widget=Select2Widget())
-        self.fields["access_rules_tag"] = forms.CharField(
-                required=False,
-                help_text=_("If non-empty, limit the regrading to sessions "
-                "started under this access rules tag."),
-                label=_("Access rules tag"))
+        # self.fields["access_rules_tag"] = forms.CharField(
+        #         required=False,
+        #         # help_text=_("If non-empty, limit the regrading to sessions "
+        #         # "started under this access rules tag."),
+        #         label=_("Access rules tag"))
         self.fields["regraded_session_in_progress"] = forms.ChoiceField(
                 choices=(
                     ("any",
-                        _("Regrade in-progress and not-in-progress sessions")),
+                        _("全員")),
                     ("yes",
-                        _("Regrade in-progress sessions only")),
+                        _("実施済みの学生のみ")),
                     ("no",
-                        _("Regrade not-in-progress sessions only")),
+                        _("実施していない学生のみ")),
                     ),
-                label=_("Regraded session in progress"))
+                label=_("再考対象"))
 
         self.helper.add_input(
-                Submit("regrade", _("Regrade")))
+                Submit("regrade", _("再採点")))
 
 
 @course_view
@@ -2802,14 +2802,14 @@ def regrade_flows_view(pctx: CoursePageContext) -> http.HttpResponse:
 
     return render_course_page(pctx, "course/generic-course-form.html", {
         "form": form,
-        "form_text": string_concat(
-            "<p>",
-            _("This regrading process is only intended for flows that do"
-            "not show up in the grade book. If you would like to regrade"
-            "for-credit flows, use the corresponding functionality in "
-            "the grade book."),
-            "</p>"),
-        "form_description": _("Regrade not-for-credit Flow Sessions"),
+        # "form_text": string_concat(
+        #     "<p>",
+        #     _("This regrading process is only intended for flows that do"
+        #     "not show up in the grade book. If you would like to regrade"
+        #     "for-credit flows, use the corresponding functionality in "
+        #     "the grade book."),
+        #     "</p>"),
+        "form_description": _("成績結果再考"),
     })
 
 
@@ -2903,12 +2903,12 @@ class PurgePageViewData(StyledForm):
         self.helper = FormHelper()
         super().__init__(*args, **kwargs)
 
-        self.fields["course"] = forms.ModelChoiceField(
+        self.fields["コース名"] = forms.ModelChoiceField(
                 queryset=get_pv_purgeable_courses_for_user_qs(user),
                 required=True)
 
         self.helper.add_input(
-                Submit("submit", _("Purge Page View Data"),
+                Submit("submit", _("クラスページ削除"),
                     css_class="btn btn-danger"))
 
 
@@ -2931,7 +2931,7 @@ def purge_page_view_data(request):
         form = PurgePageViewData(request.user)
 
     return render(request, "generic-form.html", {
-        "form_description": _("Purge Page View Data"),
+        "form_description": _("クラスページ削除"),
         "form": form
         })
 

@@ -131,14 +131,14 @@ class Course(models.Model):
     hidden = models.BooleanField(
             default=True,
         #     help_text=_("Is the course only accessible to course staff?"),
-            verbose_name=_("Only visible to course staff"))
+            verbose_name=_("コースのスタッフにしか見せない"))
     listed = models.BooleanField(
             default=True,
         #     help_text=_("Should the course be listed on the main page?"),
-            verbose_name=_("Listed on main page"))
+            verbose_name=_("メインページに掲載"))
     accepts_enrollment = models.BooleanField(
             default=True,
-            verbose_name=_("Accepts enrollment"))
+            verbose_name=_("履修を受け付ける"))
 
     git_source = models.CharField(max_length=200, blank=False,
         #     help_text=_("A Git URL from which to pull course updates. "
@@ -159,7 +159,7 @@ class Course(models.Model):
         #         "Use only if your course content lives in a subdirectory "
         #         "of your git repository. "
         #         "Should not include trailing slash."),
-            verbose_name=_("Course root in repository"))
+            verbose_name=_("コースのリポジトリ"))
 
     course_file = models.CharField(max_length=200,
             default="course.yml",
@@ -176,39 +176,41 @@ class Course(models.Model):
             default=False,
         #     help_text=_("If set, each enrolling student must be "
         #     "individually approved."),
-            verbose_name=_("Enrollment approval required"))
+            verbose_name=_("受講に承認が必要"))
     preapproval_require_verified_inst_id = models.BooleanField(
             default=True,
         #     help_text=_("If set, students cannot get participation "
         #                 "preapproval using institutional ID if "
         #                 "the institutional ID they provided is not "
         #                 "verified."),
-            verbose_name=_("Prevent preapproval by institutional ID if not "
-                           "verified?"))
+            verbose_name=_("有効化されていないIDからの承認を防止"))
     enrollment_required_email_suffix = models.CharField(
             max_length=200, blank=True, null=True,
         #     help_text=_("Enrollee's email addresses must end in the "
         #     "specified suffix, such as '@illinois.edu'."),
-            verbose_name=_("Enrollment required email suffix"))
+            verbose_name=_("学内Eメール"))
 
     from_email = models.EmailField(
             # Translators: replace "RELATE" with the brand name of your
             # website if necessary.
         #     help_text=_("This email address will be used in the 'From' line "
         #     "of automated emails sent by RELATE."),
-            verbose_name=_("From email"))
+                help_text=_("このメールアドレスはMini_Testerから送られてきたメールのFrom欄に使用します"),
+            verbose_name=_("Eメールアドレス"))
 
     notify_email = models.EmailField(
         #     help_text=_("This email address will receive "
         #     "notifications about the course."),
-            verbose_name=_("Notify email"))
+                help_text=_(
+                "お知らせを受け取る為のEメールアドレス"),
+            verbose_name=_("Eメールアドレス"))
 
     force_lang = models.CharField(max_length=200, blank=True, null=True,
             default="",
             validators=[validate_course_specific_language],
         #     help_text=_(
         #         "Which language is forced to be used for this course."),
-            verbose_name=_("Course language forcibly used"))
+            verbose_name=_("コース内の言語"))
 
     # {{{ XMPP
 
@@ -216,22 +218,22 @@ class Course(models.Model):
         #     help_text=_("(Required only if the instant message feature is "
         #     "desired.) The Jabber/XMPP ID (JID) the course will use to sign "
         #     "in to an XMPP server."),
-            verbose_name=_("Course xmpp ID"))
+            verbose_name=_("コースのxmpp ID"))
     course_xmpp_password = models.CharField(max_length=200, blank=True, null=True,
         #     help_text=_("(Required only if the instant message feature is "
         #     "desired.) The password to go with the JID above."),
-            verbose_name=_("Course xmpp password"))
+            verbose_name=_("コースのxmppパスワード"))
 
     recipient_xmpp_id = models.CharField(max_length=200, blank=True, null=True,
         #     help_text=_("(Required only if the instant message feature is "
         #     "desired.) The JID to which instant messages will be sent."),
-            verbose_name=_("Recipient xmpp ID"))
+            verbose_name=_("受信者側のxmpp ID"))
 
     # }}}
 
     active_git_commit_sha = models.CharField(max_length=200, null=False,
             blank=False,
-            verbose_name=_("Active git commit SHA"))
+            verbose_name=_("使用中のgitコミットSHA"))
 
     participants = models.ManyToManyField(settings.AUTH_USER_MODEL,
             through="Participation")
@@ -292,21 +294,22 @@ class Event(models.Model):
             # Translators: format of event kind in Event model
             help_text=_("Should be lower_case_with_underscores, no spaces "
             "allowed."),
-            verbose_name=_("Kind of event"),
+            verbose_name=_("イベントID"),
             validators=[
                 RegexValidator(
                     "^" + EVENT_KIND_REGEX + "$",
-                    message=_("Should be lower_case_with_underscores, no spaces "
-                              "allowed.")),
+                #     message=_("Should be lower_case_with_underscores, no spaces "
+                #               "allowed.")
+                              ),
                 ]
             )
     ordinal = models.IntegerField(blank=True, null=True,
             # Translators: ordinal of event of the same kind
             verbose_name=_("Ordinal of event"))
 
-    time = models.DateTimeField(verbose_name=_("Start time"))
+    time = models.DateTimeField(verbose_name=_("開始日"))
     end_time = models.DateTimeField(null=True, blank=True,
-            verbose_name=_("End time"))
+            verbose_name=_("終了日"))
     all_day = models.BooleanField(default=False,
             # Translators: for when the due time is "All day", how the webpage
             # of a event is displayed.

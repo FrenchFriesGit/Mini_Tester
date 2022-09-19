@@ -966,7 +966,7 @@ class EditParticipationForm(StyledModelForm):
                 required=False)
 
         self.helper.add_input(
-                Submit("submit", _("Update")))
+                Submit("submit", _("更新")))
         if participation.status != participation_status.active:
             self.helper.add_input(
                     Submit("approve", _("Approve"), css_class="btn-success"))

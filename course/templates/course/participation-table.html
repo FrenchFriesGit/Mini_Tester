@@ -3,22 +3,22 @@
 <table class="table table-striped gradebook-participants">
   <thead>
     {% if not pperm.view_participant_masked_profile %}
-        <th class="datacol">{% trans "User ID" %}</th>
+        <th class="datacol">{% trans "ユーザーID" %}</th>
     {% else %}
-        <th class="datacol">{% trans "User" %}</th>
+        <th class="datacol">{% trans "ユーザー" %}</th>
     {% endif %}
     {% if pperm.edit_participation %}
-      <th class="datacol">{% trans "Actions" %}</th>
+      <th class="datacol">{% trans "操作" %}</th>
     {% endif %}
-    <th class="datacol">{% trans "Status" %}</th>
+    <th class="datacol">{% trans "状態" %}</th>
     {% if not pperm.view_participant_masked_profile %}
         <th class="datacol">{% trans "Name" context "real name of a user" %}</th>
     {% endif %}
-    <th class="datacol">{% trans "Role" %}</th>
+    <th class="datacol">{% trans "役割" %}</th>
     {% if not pperm.view_participant_masked_profile %}
-        <th class="datacol">{% trans "Institutional ID" %}</th>
+        <th class="datacol">{% trans "学生ID" %}</th>
     {% endif %}
-    <th class="datacol">{% trans "Tags" %}</th>
+    <th class="datacol">{% trans "タグ" %}</th>
   </thead>
   <tbody>
     {% for participation in participations %}
@@ -35,7 +35,7 @@
       </td>
       {% if pperm.edit_participation %}
         <td class="datacol">
-          <a href="{% url "relate-edit_participation" course.identifier participation.id %}" class="btn btn-default btn-xs">{% trans "Edit" %}</a>
+          <a href="{% url "relate-edit_participation" course.identifier participation.id %}" class="btn btn-default btn-xs">{% trans "編集" %}</a>
         </td>
       {% endif %}
       <td class="datacol">{% trans participation.status %}</td>

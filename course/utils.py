@@ -907,7 +907,7 @@ def get_codemirror_widget(
         theme += " relate-readonly"
 
     from django.urls import reverse
-    help_text = (_("Press F9 to toggle full-screen mode. ")
+    help_text = (_("")
             + _("Set editor mode in <a href='%s'>user profile</a>.")
             % reverse("relate-user_profile"))
 

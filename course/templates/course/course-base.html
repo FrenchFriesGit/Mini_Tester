@@ -28,21 +28,21 @@
   {% if not relate_exam_lockdown and pperm.view_calendar %}
     <li class="dropdown">
       {% comment %} Translators: The following are names for menu items in course page {% endcomment %}
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Participant" context "menu item" %}<b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "参加者" context "menu item" %}<b class="caret"></b></a>
       <ul class="dropdown-menu">
         {% if course.course_xmpp_id and pperm.send_instant_message %}
           <li><a href="{% url "relate-send_instant_message" course.identifier %}">{% trans "Send instant message" %}</a></li>
         {% endif %}
         {% if not request.user.is_anonymous %}
-          <li><a href="{% url "relate-view_participant_grades" course.identifier %}">{% trans "View grades" %}</a></li>
+          <li><a href="{% url "relate-view_participant_grades" course.identifier %}">{% trans "成績表閲覧" %}</a></li>
         {% endif %}
         {% if pperm.view_calendar %}
-          <li><a href="{% url "relate-view_calendar" course.identifier %}">{% trans "View calendar" %}</a></li>
+          <li><a href="{% url "relate-view_calendar" course.identifier %}">{% trans "カレンダー" %}</a></li>
         {% endif %}
-        <li><a href="{% url "relate-course_page" course.identifier %}">{% trans "Back to course page" %}</a></li>
+        <li><a href="{% url "relate-course_page" course.identifier %}">{% trans "コースページ" %}</a></li>
         {% if pperm.view_analytics %}
           <li role="presentation" class="divider"></li>
-          <li><a href="{% url "relate-manage_authentication_tokens" course.identifier %}">{% trans "Manage Authentication Tokens" %}</a></li>
+          <li><a href="{% url "relate-manage_authentication_tokens" course.identifier %}">{% trans "認証トークン管理" %}</a></li>
         {% endif %}
       </ul>
     </li>
@@ -50,47 +50,47 @@
 
   {% if pperm.view_gradebook %}
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Grading" context "menu item" %}<b class="caret"></b></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "成績" context "menu item" %}<b class="caret"></b></a>
     <ul class="dropdown-menu">
       {% if pperm.view_analytics %}
-        <li><a href="{% url "relate-flow_list" course.identifier %}">{% trans "Analytics Overview" %}</a></li>
+        <li><a href="{% url "relate-flow_list" course.identifier %}">{% trans "分析概要" %}</a></li>
       {% endif %}
 
       {% if pperm.view_gradebook %}
         <li role="presentation" class="divider"></li>
-        <li role="presentation" class="dropdown-header">{% trans "Grade Book" %}</li>
-        <li><a href="{% url "relate-view_participant_list" course.identifier %}">{% trans "List of Participants" %}</a></li>
-        <li><a href="{% url "relate-view_grading_opportunity_list" course.identifier %}">{% trans "List of Grading Opportunities" %}</a></li>
-        <li><a href="{% url "relate-view_gradebook" course.identifier %}">{% trans "Grade book" %}</a></li>
+        <li role="presentation" class="dropdown-header">{% trans "採点簿" %}</li>
+        <li><a href="{% url "relate-view_participant_list" course.identifier %}">{% trans "参加者一覧" %}</a></li>
+        <li><a href="{% url "relate-view_grading_opportunity_list" course.identifier %}">{% trans "テスト結果一覧" %}</a></li>
+        <li><a href="{% url "relate-view_gradebook" course.identifier %}">{% trans "採点簿" %}</a></li>
         {% if pperm.batch_export_grade %}
-          <li><a href="{% url "relate-export_gradebook_csv" course.identifier %}">{% trans "Grade book (CSV export)" %}</a></li>
+          <li><a href="{% url "relate-export_gradebook_csv" course.identifier %}">{% trans "採点簿(CSV出力)" %}</a></li>
         {% endif %}
       {% endif %}
       {% if pperm.batch_import_grade %}
-        <li><a href="{% url "relate-import_grades" course.identifier %}">{% trans "Import Grades" %}</a></li>
+        <!-- <li><a href="{% url "relate-import_grades" course.identifier %}">{% trans "成績結果読み込み" %}</a></li> -->
       {% endif %}
       {% if pperm.batch_regrade_flow_session %}
         <li role="presentation" class="divider"></li>
-        <li><a href="{% url "relate-regrade_flows_view" course.identifier %}">{% trans "Regrade flows" %}</a></li>
+        <li><a href="{% url "relate-regrade_flows_view" course.identifier %}">{% trans "成績結果再考" %}</a></li>
       {% endif %}
 
       {% if pperm.grant_exception %}
         <li role="presentation" class="divider"></li>
-        <li role="presentation" class="dropdown-header">{% trans "Exceptions" %}</li>
-        <li><a href="{% url "relate-grant_exception" course.identifier %}">{% trans "Grant exception" %}</a></li>
+        <li role="presentation" class="dropdown-header">{% trans "申し立て" %}</li>
+        <li><a href="{% url "relate-grant_exception" course.identifier %}">{% trans "申し立て承認" %}</a></li>
         {% if user.is_staff %}
-          <li><a href="{% url "admin:course_flowruleexception_changelist" %}?participation__course__id__exact={{ course.id }}" target="_blank">{% trans "Show exceptions" %}</a></li>
+          <li><a href="{% url "admin:course_flowruleexception_changelist" %}?participation__course__id__exact={{ course.id }}" target="_blank">{% trans "申し立て一覧" %}</a></li>
         {% endif %}
       {% endif %}
 
       {% if user.is_staff or pperm.batch_issue_exam_ticket %}
         <li role="presentation" class="divider"></li>
-        <li role="presentation" class="dropdown-header">{% trans "Exams" %}</li>
+        <li role="presentation" class="dropdown-header">{% trans "テスト" %}</li>
         {% if user.is_staff %}
-          <li><a href="{% url "admin:course_exam_changelist" %}?course__id__exact={{ course.id }}" target="_blank">{% trans "Edit exams" %}</a></li>
+          <li><a href="{% url "admin:course_exam_changelist" %}?course__id__exact={{ course.id }}" target="_blank">{% trans "テストデータ編集" %}</a></li>
         {% endif %}
         {% if pperm.batch_issue_exam_ticket %}
-          <li><a href="{% url "relate-batch_issue_exam_tickets" course.identifier %}">{% trans "Batch-issue exam tickets" %}</a></li>
+          <!-- <li><a href="{% url "relate-batch_issue_exam_tickets" course.identifier %}">{% trans "Batch-issue exam tickets" %}</a></li> -->
         {% endif %}
       {% endif %}
 
@@ -100,39 +100,39 @@
 
   {% if pperm.preview_content or pperm.use_markup_sandbox or pperm.use_page_sandbox %}
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Content" context "menu item" %}<b class="caret"></b></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "コンテント" context "menu item" %}<b class="caret"></b></a>
     <ul class="dropdown-menu">
 
       {% if pperm.preview_content or pperm.update_content %}
-        <li><a href="{% url "relate-update_course" course.identifier %}">{% trans "Retrieve/preview new course revisions" %}</a></li>
+        <li><a href="{% url "relate-update_course" course.identifier %}">{% trans "コース改訂" %}</a></li>
       {% endif %}
 
       {% if pperm.edit_course %}
-        <li><a href="{% url "relate-edit_course" course.identifier %}">{% trans "Edit course" %}</a></li>
+        <li><a href="{% url "relate-edit_course" course.identifier %}">{% trans "コース編集" %}</a></li>
       {% endif %}
 
-      <li role="presentation" class="divider"></li>
-      <li role="presentation" class="dropdown-header">{% trans "Content creation" %}</li>
+      <!-- <li role="presentation" class="divider"></li>
+      <li role="presentation" class="dropdown-header">{% trans "コンテンツ作成" %}</li> -->
       {% if pperm.use_page_sandbox %}
-        <li><a href="{% url "relate-view_page_sandbox" course.identifier %}">{% trans "Page sandbox" %}</a></li>
+        <!-- <li><a href="{% url "relate-view_page_sandbox" course.identifier %}">{% trans "ページテスト" %}</a></li> -->
       {% endif %}
       {% if pperm.use_markup_sandbox %}
-        <li><a href="{% url "relate-view_markup_sandbox" course.identifier %}">{% trans "Markup sandbox" %}</a></li>
+        <!-- <li><a href="{% url "relate-view_markup_sandbox" course.identifier %}">{% trans "マークアップテスト" %}</a></li> -->
       {% endif %}
 
       {% if pperm.test_flow %}
         <li role="presentation" class="divider"></li>
-        <li><a href="{% url "relate-test_flow" course.identifier %}">{% trans "Test flow" %}</a></li>
+        <li><a href="{% url "relate-test_flow" course.identifier %}">{% trans "テストフロー" %}</a></li>
       {% endif %}
 
       {% if pperm.edit_events %}
         <li role="presentation" class="divider"></li>
-        <li role="presentation" class="dropdown-header">{% trans "Calendar" %}</li>
+        <li role="presentation" class="dropdown-header">{% trans "カレンダー" %}</li>
         {% if user.is_staff %}
-          <li><a href="{% url "admin:course_event_changelist" %}?course__id__exact={{ course.id }}" target="_blank">{% trans "Edit events" %}</a></li>
+          <li><a href="{% url "admin:course_event_changelist" %}?course__id__exact={{ course.id }}" target="_blank">{% trans "イベント編集" %}</a></li>
         {% endif %}
-        <li><a href="{% url "relate-create_recurring_events" course.identifier %}">{% trans "Create recurring events" %}</a></li>
-        <li><a href="{% url "relate-renumber_events" course.identifier %}">{% trans "Renumber events" %}</a></li>
+        <li><a href="{% url "relate-create_recurring_events" course.identifier %}">{% trans "イベント作成" %}</a></li>
+        <!-- <li><a href="{% url "relate-renumber_events" course.identifier %}">{% trans "Renumber events" %}</a></li> -->
       {% endif %}
 
     </ul>
@@ -141,7 +141,7 @@
 
   {% if pperm.query_participation or pperm.manage_instant_flow_requests or pperm.preapprove_participation %}
       {% if not pperm.view_participant_masked_profile %}
-          <li class="dropdown">
+          <!-- <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Instructor" context "menu item" %}<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li role="presentation" class="dropdown-header">{% trans "Participation" %}</li>
@@ -159,7 +159,7 @@
               {% endif %}
 
             </ul>
-          </li>
+          </li> -->
       {% endif %}
   {% endif %}
 {% endblock %}

@@ -1,28 +1,28 @@
 {% load i18n %}
 <table class='table'>
   <tr>
-    <th>{% trans "Git Source URL" %}</th>
+    <th>{% trans "Git URL" %}</th>
     <td><tt>{{ course.git_source }}</tt></td>
   </tr>
   <tr>
-    <th>{% trans "Public active git SHA" %}</th>
+    <th>{% trans "git SHA" %}</th>
     <td>{{ course.active_git_commit_sha }}
       ({{course.active_git_commit_sha|commit_message_as_html:repo|safe }})</td>
   </tr>
   <tr>
-    <th>{% trans "Current git HEAD" %}</th>
+    <th>{% trans "現在の git HEAD" %}</th>
     <td>{{ current_git_head }}
       ({{ current_git_head|commit_message_as_html:repo|safe }})</td>
   </tr>
-  <tr><th>{% trans "Current preview git SHA" %}</th>
+  <!-- <tr><th>{% trans "git SHA(プレビュー)" %}</th>
     {% if is_previewing %}
       <td>{{ participation.preview_git_commit_sha}}
         ({{ participation.preview_git_commit_sha|commit_message_as_html:repo|safe }})</td>
     {% else %}
       <td>{% trans "None" %}</td>
   {% endif %}
-  </tr>
-  <tr><th>{% trans "Direct git endpoint" %}</th>
+  </tr> -->
+  <tr><th>{% trans "gitエンドポイント" %}</th>
       <td><tt>{{ git_url }}</tt> (<a href="{{token_url}}">{% trans "Manage access tokens" %}</a>)
       </td>
   </tr>

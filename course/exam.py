@@ -88,9 +88,9 @@ class IssueTicketForm(StyledForm):
                     .order_by("last_name")),
                 widget=UserSearchWidget(),
                 required=True,
-                help_text=_("Select participant for whom ticket is to "
-                "be issued."),
-                label=_("Participant"))
+                # help_text=_("Select participant for whom ticket is to "
+                # "be issued."),
+                label=_("氏名"))
         self.fields["exam"] = forms.ModelChoiceField(
                 queryset=(
                     Exam.objects
@@ -104,33 +104,33 @@ class IssueTicketForm(StyledForm):
                     ),
                 required=True,
                 initial=initial_exam,
-                label=_("Exam"))
+                label=_("テスト名"))
 
         self.fields["valid_start_time"] = forms.DateTimeField(
-                label=_("Start validity"),
+                label=_("開始日"),
                 widget=DateTimePickerInput(
                     options={"format": "YYYY-MM-DD HH:mm", "sideBySide": True}),
                 required=False)
         self.fields["valid_end_time"] = forms.DateTimeField(
-                label=_("End validity"),
+                label=_("終了日"),
                 widget=DateTimePickerInput(
                     options={"format": "YYYY-MM-DD HH:mm", "sideBySide": True}),
                 required=False)
         self.fields["restrict_to_facility"] = forms.CharField(
-                label=_("Restrict to facility"),
-                help_text=_("If not blank, the exam ticket may only be used in the "
-                    "given facility"),
+                label=_("制限"),
+                # help_text=_("If not blank, the exam ticket may only be used in the "
+                #     "given facility"),
                 required=False)
 
         self.fields["revoke_prior"] = forms.BooleanField(
-                label=_("Revoke prior exam tickets for this user"),
+                label=_("このユーザーの受験票を取り消す"),
                 required=False,
                 initial=True)
 
         self.helper.add_input(
                 Submit(
                     "issue",
-                    _("Issue ticket")))
+                    _("チケット発行")))
 
 
 @permission_required("course.can_issue_exam_tickets", raise_exception=True)
@@ -193,7 +193,7 @@ def issue_exam_ticket(request):
 
     return render(request, "generic-form.html", {
         "form_description":
-            _("Issue Exam Ticket"),
+            _("受験票発行"),
         "form": form,
         })
 
@@ -513,21 +513,23 @@ class ExamTicketBackend:
 
 
 class ExamCheckInForm(StyledForm):
-    username = forms.CharField(required=True, label=_("User name"),
+    username = forms.CharField(required=True, label=_("ユーザー名"),
             # For now, until we upgrade to a custom user model.
             max_length=30,
-            help_text=_("This is typically your full email address."))
-    code = forms.CharField(required=True, label=_("Code"),
+            # help_text=_("This is typically your full email address.")
+            )
+    code = forms.CharField(required=True, label=_("受験コード"),
             widget=forms.PasswordInput(),
-            help_text=_("This is not your password, but a code that was "
-                "given to you by a staff member. If you do not have one, "
-                "please follow the link above to log in."))
+            # help_text=_("This is not your password, but a code that was "
+            #     "given to you by a staff member. If you do not have one, "
+            #     "please follow the link above to log in.")
+                )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.helper.add_input(
-                Submit("submit", _("Check in")))
+                Submit("submit", _("受験開始")))
 
 
 @sensitive_post_parameters()

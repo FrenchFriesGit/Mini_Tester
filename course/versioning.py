@@ -461,27 +461,27 @@ class GitUpdateForm(StyledForm):
                 widget=Select2Widget(),
                 label=pgettext_lazy(
                     "new git SHA for revision of course contents",
-                    "New git SHA"))
+                    "新しい git SHA"))
 
-        self.fields["prevent_discarding_revisions"] = forms.BooleanField(
-                label=_("Prevent updating to a git revision "
-                    "prior to the current one"),
-                initial=True, required=False)
+        # self.fields["prevent_discarding_revisions"] = forms.BooleanField(
+        #         label=_("Prevent updating to a git revision "
+        #             "prior to the current one"),
+        #         initial=True, required=False)
 
         def add_button(desc, label):
             self.helper.add_input(Submit(desc, label))
 
         if may_update:
-            add_button("fetch_update", _("Fetch and update"))
-            add_button("update", _("Update"))
+            add_button("fetch_update", _("読み込み後に更新"))
+            add_button("update", _("更新"))
 
         if previewing:
-            add_button("end_preview", _("End preview"))
+            add_button("end_preview", _("プレビュー終了"))
 
-        add_button("fetch_preview", _("Fetch and preview"))
-        add_button("preview", _("Preview"))
+        add_button("fetch_preview", _("読み込み後にプレビュー"))
+        add_button("preview", _("プレビュー"))
 
-        add_button("fetch", _("Fetch"))
+        add_button("fetch", _("読み込み"))
 
 
 def _get_commit_message_as_html(repo, commit_sha):
@@ -591,7 +591,7 @@ def update_course(pctx):
     return render_course_page(pctx, "course/generic-course-form.html", {
         "form": form,
         "form_text": form_text,
-        "form_description": gettext("Update Course Revision"),
+        "form_description": gettext("コース改訂"),
     })
 
 # }}}

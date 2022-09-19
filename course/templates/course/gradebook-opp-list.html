@@ -5,24 +5,24 @@
 {% load static %}
 
 {% block title %}
-  {% trans "List of Grading Opportunities" %} - {{ relate_site_name }}
+  {% trans "成績一覧" %} - {{ relate_site_name }}
 {% endblock %}
 
 {% block content %}
-  <h1>{% trans "List of Grading Opportunities" %}</h1>
+  <h1>{% trans "成績一覧" %}</h1>
 
-  <a href="{% url "relate-edit_grading_opportunity" course.identifier -1 %}" class="btn btn-default">{% trans "Add grading opportunity" %}</a>
+  <a href="{% url "relate-edit_grading_opportunity" course.identifier -1 %}" class="btn btn-default">{% trans "成績データ追加" %}</a>
 
   <table class="table table-striped gradebook-opportunities">
     <thead>
-      <th class="datacol">{% trans "Name of grading opportunity" %}</th>
+      <th class="datacol">{% trans "テスト名" %}</th>
       {% if pperm.edit_grading_opportunity %}
-        <th class="datacol">{% trans "Actions" %}</th>
+        <th class="datacol">{% trans "操作" %}</th>
       {% endif %}
-      <th class="datacol">{% trans "Flow ID" %}</th>
-      <th class="datacol">{% trans "Aggregation strategy" %}</th>
-      <th class="datacol">{% trans "Due time" %}</th>
-      <th class="datacol">{% trans "Shown to participants" %}</th>
+      <th class="datacol">{% trans "テストID" %}</th>
+      <th class="datacol">{% trans "評価方法" %}</th>
+      <th class="datacol">{% trans "期限" %}</th>
+      <th class="datacol">{% trans "参加者に公開" %}</th>
     </thead>
     <tbody>
       {% for opp in grading_opps %}

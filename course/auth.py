@@ -546,7 +546,7 @@ class ResetPasswordFormByEmail(StyledForm):
 class ResetPasswordFormByInstid(StyledForm):
     instid = forms.CharField(max_length=100,
                               required=True,
-                              label=_("Institutional ID"))
+                              label=_("学生ID"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -602,7 +602,7 @@ def reset_password(request, field="email"):
                 if user is None:
                     FIELD_DICT = {  # noqa
                             "email": _("email address"),
-                            "instid": _("institutional ID")
+                            "instid": _("学生ID")
                             }
                     messages.add_message(request, messages.ERROR,
                             _("That %(field)s doesn't have an "
@@ -679,7 +679,7 @@ class ResetPasswordStage2Form(StyledForm):
         super().__init__(*args, **kwargs)
 
         self.helper.add_input(
-                Submit("submit_user", _("Update")))
+                Submit("submit_user", _("更新")))
 
     def clean(self):
         cleaned_data = super().clean()
@@ -883,7 +883,7 @@ def is_inst_id_editable_before_validation() -> bool:
 class UserForm(StyledModelForm):
     institutional_id_confirm = forms.CharField(
             max_length=100,
-            label=_("Institutional ID Confirmation"),
+            label=_("学生ID確認"),
             required=False)
 
     class Meta:
@@ -908,15 +908,15 @@ class UserForm(StyledModelForm):
             self.fields["institutional_id_confirm"].initial = (
                 self.instance.institutional_id)
 
-        self.fields["institutional_id"].help_text = (
-                _("The unique ID your university or school provided, "
-                    "which may be used by some courses to verify "
-                    "eligibility to enroll. "
-                    "<b>Once %(submitted_or_verified)s, it cannot be "
-                    "changed</b>.")
-                % {"submitted_or_verified":
-                   is_inst_id_editable_before_validation()
-                   and _("verified") or _("submitted")})
+        # self.fields["institutional_id"].help_text = (
+        #         _("The unique ID your university or school provided, "
+        #             "which may be used by some courses to verify "
+        #             "eligibility to enroll. "
+        #             "<b>Once %(submitted_or_verified)s, it cannot be "
+        #             "changed</b>.")
+        #         % {"submitted_or_verified":
+        #            is_inst_id_editable_before_validation()
+        #            and _("verified") or _("submitted")})
 
         # {{{ build layout
 
@@ -942,10 +942,10 @@ class UserForm(StyledModelForm):
         self.helper.layout = Layout(*fields_layout)
 
         self.helper.add_input(
-                Submit("submit_user", _("Update")))
+                Submit("submit_user", _("更新")))
 
         self.helper.add_input(
-                Button("signout", _("Sign out"), css_class="btn btn-danger",
+                Button("signout", _("ログアウト"), css_class="btn btn-danger",
                        onclick=(
                            "window.location.href='%s'"
                            % reverse("relate-logout"))))

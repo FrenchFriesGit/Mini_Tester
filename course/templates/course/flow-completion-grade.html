@@ -10,21 +10,21 @@
 
   {% if grade_info != None %}
       {% if grade_info.total_count or grade_info.optional_total_count %}
-          <h1>{% trans "Results" %}: {{flow_desc.title}}</h1>
+          <h1>{% trans "結果" %}: {{flow_desc.title}}</h1>
           <div class="well flow-well">
               {% if grade_info.total_count %}
                   <p>
                       {# Translators: the following 5 blocks of literals make a sentence. PartI #}
-                      {% trans "You have" %}
+                      {% trans "あなたは" %}
                       {% if grade_info.max_points != grade_info.max_reachable_points %}
                           {# Translators: PartII #}
-                          <b>{% trans "(so far)" %}</b>
+                          <b>{% trans "現在" %}</b>
                       {% endif %}
                       {# Translators: PartIII #}
                       {% blocktrans trimmed with provisional_points=grade_info.provisional_points|floatformat:"-2" max_points=grade_info.max_points|floatformat:"-2" %}
-                          achieved <b>{{ provisional_points }}</b> out of
-                          {{ max_points }}
-                          points.
+                          <b>{{ provisional_points }}</b> 問中
+                          {{ provisional_points }}問、解きました。
+                          
                       {% endblocktrans %}
                       {% if grade_info.max_points != grade_info.max_reachable_points %}
                           {# Translators: PartIV #}
@@ -35,7 +35,7 @@
                       {% else %}
                           {# Translators: PartV #}
                           {% blocktrans trimmed with points_percent=grade_info.points_percent|floatformat:"-2" %}
-                              (That's <b>{{ points_percent }}%</b>.)
+                              <b>{{ points_percent }}%</b>
                           {% endblocktrans %}
                       {% endif %}
                   </p>
@@ -52,14 +52,11 @@
                   {% endif %}
                   <p>
                       {% blocktrans trimmed with fully_correct_count=grade_info.fully_correct_count partially_correct_count=grade_info.partially_correct_count incorrect_count=grade_info.incorrect_count %}
-                          You have answered {{ fully_correct_count }} grading questions
-                          correctly, {{ partially_correct_count }} questions
-                          partially correctly, and {{ incorrect_count }} questions
-                          incorrectly.
+                          あなたは {{ fully_correct_count }}問、正解し、部分的には{{ partially_correct_count }}問、正解し、{{ incorrect_count }}問、間違えました。
                       {% endblocktrans %}
                       {% if grade_info.unknown_count %}
                           {% blocktrans trimmed with unknown_count=grade_info.unknown_count %}
-                              The grade for {{ unknown_count }} questions is not yet known.
+                              {{ unknown_count }}問は、まだ不明です。
                           {% endblocktrans %}
                       {% endif %}
                   </p>
@@ -77,10 +74,9 @@
               {% if grade_info.optional_total_count %}
                   <p>
                       {% blocktrans trimmed with total_count=grade_info.optional_total_count fully_correct_count=grade_info.optional_fully_correct_count partially_correct_count=grade_info.optional_partially_correct_count incorrect_count=grade_info.optional_incorrect_count %}
-                          There are {{ total_count }} optional questions (not for grading).
-                          You have answered {{ fully_correct_count }} correctly,
-                          {{ partially_correct_count }} partially correctly,
-                          and {{ incorrect_count }} incorrectly.
+                          {{ total_count }} 問、採点しない箇所があります。
+                          あなたは{{ fully_correct_count }}問、正解し、部分的には{{ partially_correct_count }}問、正解し、{{ incorrect_count }}問、間違えました。
+
                       {% endblocktrans %}
                       {% if grade_info.optional_unknown_count %}
                           {% blocktrans trimmed with unknown_count=grade_info.optional_unknown_count %}
@@ -108,7 +104,7 @@
   <div class="well flow-well">
     <a class="btn btn-default"
       href="{% url "relate-view_start_flow" course.identifier flow_identifier %}"
-      role="button">&laquo; {% trans "Back to start page" %}</a>
+      role="button">&laquo; {% trans "クラスページに戻る" %}</a>
   </div>
 
 {% endblock %}

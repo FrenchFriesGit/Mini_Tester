@@ -67,36 +67,37 @@ class RecurringEventForm(StyledForm):
     kind = forms.CharField(required=True,
             help_text=_("Should be lower_case_with_underscores, no spaces "
                         "allowed."),
-            label=pgettext_lazy("Kind of event", "Kind of event"))
+            label=pgettext_lazy("Kind of event", "イベントID"))
     time = forms.DateTimeField(
             widget=DateTimePickerInput(
                 options={"format": "YYYY-MM-DD HH:mm", "sideBySide": True}),
-            label=pgettext_lazy("Starting time of event", "Starting time"))
+            label=pgettext_lazy("Starting time of event", "開始日"))
     duration_in_minutes = forms.FloatField(required=False,
             min_value=0,
-            label=_("Duration in minutes"))
+            label=_("期間"))
     all_day = forms.BooleanField(
                 required=False,
                 initial=False,
-                label=_("All-day event"),
-                help_text=_("Only affects the rendering in the class calendar, "
-                "in that a start time is not shown"))
+                label=_("終日イベント"),
+                # help_text=_("Only affects the rendering in the class calendar, "
+                # "in that a start time is not shown")
+                )
     shown_in_calendar = forms.BooleanField(
             required=False,
             initial=True,
-            label=_("Shown in calendar"))
+            label=_("カレンダーに表示する"))
     interval = forms.ChoiceField(required=True,
             choices=(
-                ("weekly", _("Weekly")),
-                ("biweekly", _("Bi-Weekly")),
+                ("weekly", _("毎週")),
+                ("biweekly", _("隔週")),
                 ),
-            label=pgettext_lazy("Interval of recurring events", "Interval"))
-    starting_ordinal = forms.IntegerField(required=False,
-            label=pgettext_lazy(
-                "Starting ordinal of recurring events", "Starting ordinal"))
-    count = forms.IntegerField(required=True,
-            min_value=0,
-            label=pgettext_lazy("Count of recurring events", "Count"))
+            label=pgettext_lazy("Interval of recurring events", "間隔"))
+    # starting_ordinal = forms.IntegerField(required=False,
+    #         label=pgettext_lazy(
+    #             "Starting ordinal of recurring events", "Starting ordinal"))
+    # count = forms.IntegerField(required=True,
+    #         min_value=0,
+    #         label=pgettext_lazy("Count of recurring events", "Count"))
 
     def __init__(self, course_identifier, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -110,7 +111,7 @@ class RecurringEventForm(StyledForm):
                                                     name="event_choices")
 
         self.helper.add_input(
-                Submit("submit", _("Create")))
+                Submit("submit", _("作成")))
 
 
 class EventAlreadyExists(Exception):
@@ -241,7 +242,7 @@ def create_recurring_events(pctx):
         messages.add_message(request, message_level, message)
     return render_course_page(pctx, "course/generic-course-form.html", {
         "form": form,
-        "form_description": _("Create recurring events"),
+        "form_description": _("イベント作成"),
     })
 
 

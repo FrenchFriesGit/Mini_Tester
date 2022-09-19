@@ -651,7 +651,7 @@ class FlowTestForm(StyledForm):
         self.fields["flow_id"] = forms.ChoiceField(
                 choices=[(fid, fid) for fid in flow_ids],
                 required=True,
-                label=_("Flow ID"),
+                label=_("テストID"),
                 widget=Select2Widget())
 
         self.helper.add_input(
@@ -659,7 +659,7 @@ class FlowTestForm(StyledForm):
                     "test",
                     mark_safe_lazy(
                         string_concat(
-                            pgettext("Start an activity", "Go"),
+                            pgettext("Start an activity", "進む"),
                             " &raquo;")),
                     ))
 
@@ -688,7 +688,7 @@ def test_flow(pctx):
 
     return render_course_page(pctx, "course/generic-course-form.html", {
         "form": form,
-        "form_description": _("Test Flow"),
+        "form_description": _("テストフロー"),
     })
 
 # }}}
@@ -719,21 +719,21 @@ class ExceptionStage1Form(StyledForm):
                         )
                     .order_by("user__last_name")),
                 required=True,
-                help_text=_("Select participant for whom exception is to "
-                "be granted."),
-                label=_("Participant"),
+                # help_text=_("Select participant for whom exception is to "
+                # "be granted."),
+                label=_("参加者"),
                 widget=Select2Widget())
         self.fields["flow_id"] = forms.ChoiceField(
                 choices=[(fid, fid) for fid in flow_ids],
                 required=True,
-                label=_("Flow ID"))
+                label=_("テストID"))
 
         self.helper.add_input(
                 Submit(
                     "next",
                     mark_safe_lazy(
                         string_concat(
-                            pgettext("Next step", "Next"),
+                            pgettext("Next step", "進む"),
                             " &raquo;"))))
 
 
@@ -760,7 +760,7 @@ def grant_exception(pctx):
 
     return render_course_page(pctx, "course/generic-course-form.html", {
         "form": form,
-        "form_description": _("Grant Exception"),
+        "form_description": _("申し立て承認"),
     })
 
 
@@ -1403,7 +1403,7 @@ class EditCourseForm(StyledModelForm):
         self.fields["active_git_commit_sha"].disabled = True
 
         self.helper.add_input(
-                Submit("submit", _("Update")))
+                Submit("submit", _("更新")))
 
     class Meta:
         model = Course
@@ -1450,7 +1450,7 @@ def edit_course(pctx):
     from course.utils import LanguageOverride
     with LanguageOverride(instance):
         return render_course_page(pctx, "course/generic-course-form.html", {
-            "form_description": _("Edit Course"),
+            "form_description": _("コース編集"),
             "form": form
             })
 

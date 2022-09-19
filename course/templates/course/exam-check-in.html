@@ -4,9 +4,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <h1>{% trans "Check in for Exam" %}</h1>
+  <h1>{% trans "受験準備" %}</h1>
 
-  <div class="alert alert-info">
+  <!-- <div class="alert alert-info">
     <i class="fa fa-chevron-left"></i>
     {% url "relate-sign_in_choice" as relate-sign_in_choice %}
     {% blocktrans trimmed %}
@@ -15,7 +15,7 @@
       <a href="{{ relate-sign_in_choice }}">use a different method to sign in</a>
       instead.
     {% endblocktrans %}
-  </div>
+  </div> -->
   <div class="well">
     {% crispy form %}
   </div>

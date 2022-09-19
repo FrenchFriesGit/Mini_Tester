@@ -16,16 +16,16 @@
 
     {% if past_sessions_and_properties %}
       <div class="well">
-        <h3 class="start-well-title">{% trans "Past sessions" %}</h3>
+        <h3 class="start-well-title">{% trans "前回の記録" %}</h3>
 
         <table class="past-flow-session-table">
           <tr>
-            <th>{% trans "Start time" %}</th>
-            <th>{% trans "State" %}</th>
-            <th>{% trans "Grading rules" %}</th>
-            <th>{% trans "Due" %}</th>
-            <th>{% trans "Result" %}</th>
-            <th>{% trans "Actions" %}</th>
+            <th>{% trans "開始時間" %}</th>
+            <th>{% trans "状態" %}</th>
+            <th>{% trans "評価ルール" %}</th>
+            <th>{% trans "期限" %}</th>
+            <th>{% trans "結果" %}</th>
+            <th>{% trans "操作" %}</th>
           </tr>
           {% for flow_session, session_properties in past_sessions_and_properties %}
             <tr>
@@ -40,7 +40,7 @@
                 {% if session_properties.grade_description %}
                   {{ session_properties.grade_description }}
                 {% else %}
-                  {% trans "(no description)" %}
+                  {% trans "不明" %}
                 {% endif %}
               </td>
               <td>
@@ -70,15 +70,15 @@
                 {% if session_properties.may_view %}
                   <a href="{% url "relate-view_resume_flow" course.identifier flow_session.id %}" class="btn btn-primary btn-xs">
                     {% if session_properties.may_modify %}
-                      {% trans "Resume" %} &raquo;
+                      {% trans "再開" %} &raquo;
                     {% else %}
-                      {% trans "Review" %} &raquo;
+                      {% trans "見る" %} &raquo;
                     {% endif %}
                   </a>
 
                   {% if not flow_session.in_progress %}
                     <a href="{% url "relate-finish_flow_session_view" course.identifier flow_session.id %}" class="btn btn-primary btn-xs">
-                        {% trans "Results" %}
+                        {% trans "結果" %}
                     </a>
                   {% endif %}
                 {% endif %}
@@ -91,7 +91,7 @@
 
     {% if may_start %}
       {% if new_session_grading_rule.grade_identifier %}
-        <div class="alert alert-info">
+        <!-- <div class="alert alert-info">
           {% trans "If you start a new session, the following rules will apply:" %}
           <ul>
             {% if new_session_grading_rule.description %}
@@ -124,18 +124,18 @@
               </li>
             {% endif%}
           </ul>
-        </div>
+        </div> -->
       {% endif %}
 
       {# {{{ start button #}
 
       {% if start_may_decrease_grade %}
         <a id="pre-start-button" class="btn btn-primary">
-          {% trans "Start" %} &raquo;
+          {% trans "開始" %} &raquo;
         </a>
         <button id="start-button" type="submit" name="start" class="btn btn-danger"
           style="display:none"
-          data-content='<p>{% trans "I understand that starting a new session could lower my overall grade." %}</p>
+          data-content='<p>{% trans "本当によろしいですか？" %}</p>
                         <button id="cancel-button" type="reset" name="cancel" class="btn btn-primary btn-sm" style="float: right;">
                         {% trans "Cancel" %}</button>'
           data-html="true"
@@ -143,7 +143,7 @@
           data-placement="right"
           >
             {# Translators: student should confirm to start another session. #}
-            {% trans "I am sure" %} &raquo;
+            {% trans "はい" %} &raquo;
         </button>
 
         <script type="text/javascript">

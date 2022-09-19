@@ -80,10 +80,10 @@ class SandboxForm(forms.Form):
                 help_text=mark_safe(
                     help_text
                     + " "
-                    + gettext("Press Alt/Cmd+(Shift+)P to preview.")
+                    + gettext("")
                     + " "
                     + cm_help_text),
-                label=_("Content"))
+                label=_(""))
 
         # 'strip' attribute was added to CharField in Django 1.9
         # with 'True' as default value.
@@ -227,7 +227,7 @@ def view_page_sandbox(pctx: CoursePageContext) -> http.HttpResponse:
     def make_form(data: Optional[str] = None) -> PageSandboxForm:
         return PageSandboxForm(
                 page_source, "yaml", request.user.editor_mode,
-                gettext("Enter YAML markup for a flow page."),
+                gettext(""),
                 data)
 
     if is_preview_post:

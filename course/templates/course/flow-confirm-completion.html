@@ -7,12 +7,12 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{% trans "End Session" %} '{{flow_desc.title}}'?</h1>
+  <h1>'{{flow_desc.title}}' {% trans "を終了しますか？" %} </h1>
 
   {% if unanswered_count %}
     <div class="alert alert-danger">
       <i class="fa fa-warning"></i>
-      {% trans "You have left the following question(s) unanswered:" %}
+      {% trans "まだ回答していない箇所があります" %}
           <ul>
             {% for page_data in unanswered_page_data_list %}
               <li>
@@ -30,7 +30,7 @@
 
   {% if required_count %}
     <p>
-    {% blocktrans trimmed %}
+    <!-- {% blocktrans trimmed %}
     There were {{required_count}} grading questions.
     {% endblocktrans %}
     {% if answered_count == required_count %}
@@ -41,18 +41,18 @@
       {% blocktrans trimmed %}
       You have answered {{answered_count}} and left {{unanswered_count}} unanswered.
       {% endblocktrans %}
-    {% endif %}
+    {% endif %} -->
     </p>
   {% endif %}
 
-  {% trans "If you choose to end your session, the following things will happen:" %}
+  <!-- {% trans "If you choose to end your session, the following things will happen:" %}
   <ul>
     <li>{% trans "You will be prevented from making further changes to your answers." %}</li>
     {% if session_may_generate_grade %}
         <li>{% trans "All your currently saved answers, if not graded already, will be graded." %}</li>
         <li>{% trans "If possible, a final grade will be computed from all saved, graded answers." %}</li>
     {% endif %}
-  </ul>
+  </ul> -->
 
   <div class="well flow-well">
     <form method="POST" id="submit-form">
@@ -60,22 +60,22 @@
 
       <a class="btn btn-default"
         href="{% url "relate-view_flow_page" course.identifier flow_session.id last_page_nr %}"
-        role="button">&laquo; {% trans "Go back" %}</a>
+        role="button">&laquo; {% trans "戻る" %}</a>
 
       {% if unanswered_count %}
         <a id="pre-submit-button" class="btn btn-primary btn-danger">
-          {% trans "Confirm: Submit answers and end session" %}
+          {% trans "終了する" %}
         </a>
         <button id="submit" type="submit" name="submit" class="btn btn-danger"
                 style="display:none"
-                data-content='<p>{% trans "Are you sure you will submit this session with questions unanswered?" %}</p>
+                data-content='<p>{% trans "本当に終了してよろしいですか？" %}</p>
                         <button id="cancel-button" type="reset" name="cancel" class="btn btn-primary btn-sm" style="float: right;">
                         {% trans "Cancel" %}</button>'
                 data-html="true"
                 data-container="body"
                 data-placement="right"
           >
-            {% trans "I am sure" %} &raquo;
+            {% trans "はい" %} &raquo;
         </button>
 
       {% else %}

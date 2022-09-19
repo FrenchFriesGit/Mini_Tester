@@ -1425,7 +1425,7 @@ def import_grades(pctx):
         form = ImportGradesForm(pctx.course)
 
     return render_course_page(pctx, "course/generic-course-form.html", {
-        "form_description": _("Import Grade Data"),
+        "form_description": _("成績結果読み込み"),
         "form": form,
         "form_text": form_text,
         })
@@ -1658,7 +1658,7 @@ class EditGradingOpportunityForm(StyledModelForm):
         self.fields["creation_time"].disabled = True
 
         self.helper.add_input(
-                Submit("submit", _("Update")))
+                Submit("submit", _("更新")))
 
     class Meta:
         model = GradingOpportunity

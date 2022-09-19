@@ -77,7 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     institutional_id = models.CharField(max_length=100,
-            verbose_name=_("Institutional ID"),
+            verbose_name=_("学生ID"),
             blank=True, null=True, unique=True, db_index=True)
     institutional_id_verified = models.BooleanField(
         _("Institutional ID verified"),
@@ -104,10 +104,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             verbose_name=_("Key time"))
 
     editor_mode = models.CharField(max_length=20,
-            help_text=_("Which key bindings you prefer when editing "
-                        "larger amounts of text or code. "
-                        "(If you do not understand what this means, "
-                        "leave it as 'Default'.)"),
+            # help_text=_("Which key bindings you prefer when editing "
+            #             "larger amounts of text or code. "
+            #             "(If you do not understand what this means, "
+            #             "leave it as 'Default'.)"),
             choices=(
                 ("default", _("Default")),
                 ("sublime", "Sublime text"),
@@ -116,7 +116,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                 ),
             default="default",
             # Translators: the text editor used by participants
-            verbose_name=_("Editor mode"))
+            verbose_name=_("テキストエディタ"))
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]

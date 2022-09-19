@@ -4,13 +4,13 @@
 {% load static %}
 
 {% block title %}
-  {% trans "List of Participants" %} - {{ relate_site_name }}
+  {% trans "参加者一覧" %} - {{ relate_site_name }}
 {% endblock %}
 
 {% block content %}
-  <h1>{% trans "List of Participants" %}</h1>
+  <h1>{% trans "参加者一覧" %}</h1>
 
-  <a href="{% url "relate-edit_participation" course.identifier -1 %}" class="btn btn-default">{% trans "Add participant" %}</a>
+  <a href="{% url "relate-edit_participation" course.identifier -1 %}" class="btn btn-default">{% trans "参加者を追加" %}</a>
 
   {% include "course/participation-table.html" with participations=participations %}
 

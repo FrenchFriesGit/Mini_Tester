@@ -2,22 +2,23 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Grade book" %} - {{ relate_site_name }}
+  {% trans "採点簿" %} - {{ relate_site_name }}
 {% endblock %}
 
 {% block content %}
-  <h1>{% trans "Grade book" %}</h1>
+  <h1>{% trans "採点簿" %}</h1>
 
   <table class="table table-striped gradebook ">
     <thead>
     {% if not pperm.view_participant_masked_profile %}
-        <th class="datacol">{% trans "User ID" %}</th>
-        <th class="datacol">{% trans "Name" context "real name of a user" %}</th>
+        <th class="datacol">{% trans "ユーザーID" %}</th>
+        <th class="datacol">{% trans "役割" context "real name of a user" %}</th>
     {% else %}
-        <th class="datacol">{% trans "User" %}</th>
+        <th class="datacol">{% trans "ユーザー" %}</th>
     {% endif %}
       {% for opp in grading_opportunities reversed %}
-      <th class="datacol"><a href="{% url "relate-view_grades_by_opportunity" course.identifier opp.pk %}">{{ opp.name }}</a> <tt style="font-size:x-small">({{ opp.identifier }})</tt></th>
+      <!-- <th class="datacol"><a href="{% url "relate-view_grades_by_opportunity" course.identifier opp.pk %}">{{ opp.name }}</a> <tt style="font-size:x-small">({{ opp.identifier }})</tt></th> -->
+      <th class="datacol">{% trans "結果" %}</th>
       {% endfor %}
     </thead>
     <tbody>
