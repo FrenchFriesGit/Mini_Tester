@@ -37,7 +37,7 @@ from course.page.base import (
 import re
 import sys
 
-CORRECT_ANSWER_PATTERN = string_concat(_("A correct answer is"), ": '%s'.")  # noqa
+CORRECT_ANSWER_PATTERN = string_concat(_("正解は"), ": '%s'.")  # noqa
 
 
 class TextAnswerForm(StyledForm):

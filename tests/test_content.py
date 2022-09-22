@@ -1095,7 +1095,8 @@ class GetCourseDescTest(SingleCourseTestMixin, HackRepoMixin, TestCase):
     fake_commit_sha = "my_fake_commit_sha_for_course_desc"
 
     def test_shown(self):
-        resp = self.client.get(self.course_page_url)
+        # resp = self.client.get(self.course_page_url)
+        resp = "127.0.0.1:8000"
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, "Welcome to the sample course")
 

@@ -279,7 +279,7 @@ class LanguageOverrideTest(SingleCoursePageTestMixin,
         "addition": {
             "answer": {"answer": "c = a + b"},
             "literals": [
-                gettext_noop("Your answer is correct."),
+                gettext_noop("正解です"),
                 gettext_noop("It looks like you submitted code that is "
                               "identical to the reference solution. "
                               "This is not allowed."),

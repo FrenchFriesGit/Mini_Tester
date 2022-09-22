@@ -2180,7 +2180,7 @@ def post_flow_page(
         # {{{ form validated, process answer
 
         messages.add_message(request, messages.SUCCESS,
-                _("Answer saved."))
+                _("回答を記録しました"))
 
         answer_visit = FlowPageVisit()
         answer_visit.flow_session = flow_session

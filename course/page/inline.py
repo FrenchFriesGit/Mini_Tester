@@ -860,7 +860,7 @@ class InlineMultiQuestion(TextQuestionBase, PageBaseWithValue):
                 wrapped,
                 "<strong>" + correct_answer_i + "</strong>")
 
-        CA_PATTERN = string_concat(_("A correct answer is"), ": <br/> %s")  # noqa
+        CA_PATTERN = string_concat(_("正解は"), ": <br/> %s")  # noqa
 
         result = CA_PATTERN % cor_answer_output
 

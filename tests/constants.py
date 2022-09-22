@@ -4,7 +4,7 @@ from collections import namedtuple
 DATE_TIME_PICKER_TIME_FORMAT = "%Y-%m-%d %H:%M"
 
 QUIZ_FLOW_ID = "quiz-test"
-MESSAGE_ANSWER_SAVED_TEXT = "Answer saved."
+MESSAGE_ANSWER_SAVED_TEXT = "回答を記録しました"
 MESSAGE_ANSWER_FAILED_SAVE_TEXT = "Failed to submit answer."
 
 FIXTURE_PATH = os.path.join(os.path.dirname(__file__), 'resource')

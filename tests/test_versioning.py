@@ -162,7 +162,7 @@ class CourseCreationTest(VersioningTestMixin, TestCase):
                 self.assertEqual(Participation.objects.first().user.username,
                                  "test_instructor")
                 self.assertAddMessageCalledWith(
-                    "Course content validated, creation succeeded.")
+                    "Course content validated, creation succeeded. ")
 
                 from course.enrollment import get_participation_role_identifiers
 

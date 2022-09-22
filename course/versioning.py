@@ -246,8 +246,7 @@ def set_up_new_course(request: http.HttpRequest) -> http.HttpResponse:
                         # }}}
 
                         messages.add_message(request, messages.INFO,
-                                _("Course content validated, creation "
-                                "succeeded."))
+                                _("コースの作成に成功しました"))
                 except Exception as e:
                     # Don't coalesce this handler with the one below. We only want
                     # to delete the directory if we created it. Trust me.
@@ -391,7 +390,7 @@ def run_course_update_command(
     else:
         if not warnings:
             messages.add_message(request, messages.SUCCESS,
-                    _("Course content validated successfully."))
+                    _("コースの作成に成功しました"))
         else:
             messages.add_message(request, messages.WARNING,
                     string_concat(

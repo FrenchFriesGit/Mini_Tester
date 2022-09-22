@@ -1428,7 +1428,7 @@ class CodeQuestionWithHumanTextFeedbackSpecialCase(
             answer_data, page_value, human_feedback_percentage, grade_data)
         self.assertIn("The overall grade is 100%.", feedback.feedback)
         self.assertIn(
-            "Your answer is correct.", feedback.feedback)
+            "正解です", feedback.feedback)
         self.assertIn(
             "The autograder assigned 0/0 points.", feedback.feedback)
 
