@@ -37,7 +37,7 @@ class ChoiceAnswerForm(StyledForm):
 
         self.fields["choice"] = field
         # Translators: "choice" in Choice Answer Form in a single-choice question.
-        self.fields["choice"].label = _("Choice")
+        self.fields["choice"].label = _("選択肢")
 
 
 class MultipleChoiceAnswerForm(StyledForm):
